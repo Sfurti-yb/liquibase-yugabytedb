@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class YugabyteDatabase extends PostgresDatabase {
+public class YugabyteDBDatabase extends PostgresDatabase {
 
     @Override
     public int getPriority() {
@@ -43,6 +43,7 @@ public class YugabyteDatabase extends PostgresDatabase {
              ResultSet rs = stmt.executeQuery("select version()")
         ) {
             if (rs.next()) {
+                //TODO: Do pattern matching
                 return ((String) JdbcUtils.getResultSetValue(rs, 1)).startsWith("PostgreSQL 11.2-YB");
             }
         } catch (SQLException throwables) {
@@ -54,7 +55,7 @@ public class YugabyteDatabase extends PostgresDatabase {
 
     @Override
     protected String getDefaultDatabaseProductName() {
-        return "YugabyteDB";
+        return "PostgreSQL";
     }
 
     @Override
